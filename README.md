@@ -101,4 +101,3 @@ git push -u origin feature/your-module
 
 Open a pull request from that branch into `main`. After it is merged, teammates update their local `main` with `git switch main` and `git pull` before starting the next task. Replace `OWNER/REPOSITORY` with the actual GitHub repository name.
 
-See [IMAGE_ATTRIBUTIONS.md](IMAGE_ATTRIBUTIONS.md) for image credits.
