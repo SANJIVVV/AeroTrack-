@@ -7,8 +7,8 @@
  * AEROTRACK_PUBLIC_URL: extra public site URL(s), comma separated, whose
  *   tracking links the "Paste QR Code Content" lookup should accept. The
  *   current site is always accepted.
- * AEROTRACK_DEMO_MODE: keep true for local role-based demo sign-in.
+ * AEROTRACK_DEMO_MODE: set true only to use local presentation accounts.
  */
 window.AEROTRACK_API_BASE = '';
 window.AEROTRACK_PUBLIC_URL = '';
-window.AEROTRACK_DEMO_MODE = true;
+window.AEROTRACK_DEMO_MODE = false;

@@ -4,17 +4,26 @@
   "private": true,
   "description": "AeroTrack Pro frontend: plain HTML, CSS and JavaScript with QR baggage lookup.",
   "scripts": {
-    "dev": "vite client",
-    "build": "vite build client",
-    "preview": "vite preview client",
-    "lint": "eslint client",
+    "dev": "concurrently -k -n api,web \"npm:api\" \"npm:dev:client\"",
+    "dev:client": "vite client --config vite.config.js --host 127.0.0.1",
+    "api": "node server/index.js",
+    "build": "vite build client --config vite.config.js",
+    "preview": "vite preview client --config vite.config.js",
+    "lint": "eslint client server vite.config.js",
     "test": "vitest run --config client/vitest.config.js"
   },
   "engines": {
     "node": ">=20.19"
   },
+  "dependencies": {
+    "express": "^5.1.0",
+    "express-rate-limit": "^8.1.0",
+    "mongodb": "^6.20.0",
+    "nodemailer": "^10.4.0"
+  },
   "devDependencies": {
     "@eslint/js": "^9.39.5",
+    "concurrently": "^9.2.1",
     "eslint": "^9.39.5",
     "globals": "^16.5.0",
     "jsdom": "^26.1.0",
