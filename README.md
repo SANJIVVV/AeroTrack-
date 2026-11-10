@@ -1,6 +1,6 @@
-# AeroTrack Pro frontend
+# AeroTrack Pro
 
-Browser-only baggage tracking interface built with HTML, CSS, and JavaScript ES modules. It includes QR-code generation for baggage tags and QR scanning from a camera or image.
+Browser-based baggage tracking interface built with HTML, CSS, and JavaScript ES modules, plus a MongoDB-backed API for account authentication.
 
 ## Run locally
 
@@ -18,20 +18,18 @@ npm run build
 npm run preview
 ```
 
-## API connection
+## MongoDB authentication API
 
-This repository contains the frontend only; it does not include an API or database. Demo mode is on by default and lets you navigate as a passenger, staff member, or administrator without a backend. Sign-in is stored in this browser only.
+The API connects to MongoDB on the server; never put the MongoDB URI in frontend code or commit it. The URI/password previously shared in chat should be rotated in MongoDB Atlas before use. Create a database user with only the permissions the app needs, and allow the server's IP address in Atlas Network Access.
 
-On the sign-in page, choose one of the demo roles:
+1. Copy `.env.example` to `.env` and set `MONGODB_URI` to the URI containing the rotated database password. Set a random `SESSION_SECRET` of at least 32 characters. `.env` is ignored by git. For an existing local setup, the API also reads `server/.env`; values in the root `.env` take precedence.
+2. Keep `EMAIL_PROVIDER=dev` for local work. Verification/reset codes will appear on the verification page or in the development outbox at `/dev-outbox`; they are not emailed.
+3. Run `npm run dev`. This starts Vite and the API; Vite forwards `/api` requests to the local API.
+4. For deployed use, set `NODE_ENV=production`, `HOST=0.0.0.0`, `EMAIL_PROVIDER=smtp`, and configure the `MAIL_*` values. Production refuses to start with development email enabled. Serve the frontend and API on the same origin, or route `/api` through a same-origin reverse proxy so the HTTP-only session cookie is sent securely.
 
-- Passenger: `passenger@demo.aerotrack.local`
-- Airport staff: `staff@demo.aerotrack.local`
-- Administrator: `admin@demo.aerotrack.local`
+Registration creates passenger accounts only. Staff/admin roles must be assigned by a trusted administrator. This backend implements account registration, email verification, login/logout, password reset/change, profile preferences, and sessions. Other app data (baggage, flights, incidents, analytics, etc.) still requires its own compatible API; those features are not made MongoDB-backed by this authentication connection.
 
-Demo accounts have no password. Click a role button to sign in and open its dashboard. Use the sidebar or page links to move between screens; sign out to choose a different role. Demo sessions are only for presentation and do not provide real authentication or server-backed baggage data.
-
-Set `AEROTRACK_API_BASE` in [client/js/config.js](client/js/config.js) to the API origin when it is hosted separately. Leave it empty when the API is served from the same origin. A separately hosted API must allow the frontend origin and credentialed requests.
-Set `AEROTRACK_DEMO_MODE` to `false` in the same file to use API-backed authentication instead of local demo accounts.
+To use the presentation-only local demo instead, set `AEROTRACK_DEMO_MODE` to `true` in [client/js/config.js](client/js/config.js). Demo mode bypasses real authentication and should not be used as a production login.
 
 ## Checks
 
@@ -42,11 +40,12 @@ npm run lint
 
 ## Project review demo
 
-Run `npm ci` and `npm run dev`, open the local URL, then choose **Sign in** and select a demo role. The passenger, staff, and administrator accounts open their respective dashboards. Use the sidebar, dashboard links, and buttons to move between pages. Demo pages are read-only; creating records requires a connected API.
+Run `npm ci`, configure `.env`, then run `npm run dev` and open the local URL. Create an account and complete email verification using the development code/outbox, then sign in. The rest of the operational pages require their corresponding data API.
 
 ## Project layout
 
 - `client/` — app pages, components, styles, icons, QR libraries, domain helpers, and tests.
+- `server/` — MongoDB-backed authentication API.
 - `client/vendor/` — locally bundled QR generation and scanning libraries.
 
 Camera-based QR scanning requires HTTPS or `localhost`. QR payloads encode a baggage reference only; resolving baggage data requires the compatible API.
@@ -100,4 +99,3 @@ git push -u origin feature/your-module
 ```
 
 Open a pull request from that branch into `main`. After it is merged, teammates update their local `main` with `git switch main` and `git pull` before starting the next task. Replace `OWNER/REPOSITORY` with the actual GitHub repository name.
-
