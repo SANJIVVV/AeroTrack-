@@ -2,7 +2,7 @@ import js from '@eslint/js';
 import globals from 'globals';
 
 export default [
-  { ignores: ['**/node_modules/**', '**/coverage/**', '**/dist/**', 'client/vendor/**'] },
+  { ignores: ['**/node_modules/**', '**/coverage/**', 'ml-model/**', 'frontend/libraries/**'] },
   js.configs.recommended,
   {
     files: ['**/*.js'],
@@ -12,19 +12,15 @@ export default [
     },
   },
   {
-    files: ['client/**/*.js'],
+    files: ['frontend/**/*.js'],
     languageOptions: { globals: { ...globals.browser } },
   },
   {
-    files: ['client/sw.js'],
+    files: ['frontend/sw.js'],
     languageOptions: { globals: { ...globals.serviceworker } },
   },
   {
-    files: ['client/js/theme-init.js', 'client/js/config.js'],
+    files: ['frontend/js/theme-init.js', 'frontend/js/config.js'],
     languageOptions: { sourceType: 'script' },
-  },
-  {
-    files: ['**/*.test.js', '**/tests/**/*.js', 'client/test/**/*.js'],
-    languageOptions: { globals: { ...globals.node, ...globals.browser } },
   },
 ];
