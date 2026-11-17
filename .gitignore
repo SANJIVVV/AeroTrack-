@@ -7,5 +7,6 @@ coverage/
 !.env.example
 .DS_Store
 .vite/
+ml/.venv/
 __pycache__/
 *.pyc
