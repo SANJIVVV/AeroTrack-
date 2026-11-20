@@ -18,15 +18,92 @@ export function isReference(text) {
   return YEAR_REFERENCE.test(text) || LEGACY_REFERENCE.test(text);
 }
 
-/** New tag reference. `randomBytes` must be a cryptographic source. */
-export function generateReference(randomBytes, year = new Date().getUTCFullYear()) {
-  const b = randomBytes(4);
-  const n = (((b[0] ?? 0) << 24) | ((b[1] ?? 0) << 16) | ((b[2] ?? 0) << 8) | (b[3] ?? 0)) >>> 0;
-  return `AT-${year}-${String(n % 1_000_000).padStart(6, '0')}`;
+/**
+ * Cryptographically secure random integer generation in [min, max] (inclusive)
+ * using rejection sampling to eliminate modulo bias.
+ *
+ * Algorithm:
+ * 1. Calculate range size S = (max - min + 1).
+ * 2. Find the largest multiple of S <= 2^32: limit = 2^32 - (2^32 % S).
+ * 3. Draw a 32-bit unsigned integer n from the cryptographic source.
+ * 4. Reject n if n >= limit (re-sample).
+ * 5. Return min + (n % S).
+ *
+ * Guarantees exact uniform probability distribution without modulo bias.
+ */
+export function secureRandomInt(min, max, randomSource) {
+  if (min > max) throw new RangeError('min must be <= max');
+  const range = max - min + 1;
+  if (range <= 1) return min;
+
+  const maxUint32 = 0x1_00_00_00_00; // 2^32 = 4,294,967,296
+  const limit = maxUint32 - (maxUint32 % range);
+
+  const nextUint32 = () => {
+    if (typeof randomSource === 'function') {
+      const b = randomSource(4);
+      return (((b[0] ?? 0) << 24) | ((b[1] ?? 0) << 16) | ((b[2] ?? 0) << 8) | (b[3] ?? 0)) >>> 0;
+    }
+    if (typeof globalThis !== 'undefined' && globalThis.crypto?.getRandomValues) {
+      const buf = new Uint32Array(1);
+      globalThis.crypto.getRandomValues(buf);
+      return buf[0] >>> 0;
+    }
+    return Math.floor(Math.random() * maxUint32) >>> 0;
+  };
+
+  let n;
+  do {
+    n = nextUint32();
+  } while (n >= limit);
+
+  return min + (n % range);
+}
+
+/**
+ * Generate a uniform random 6-digit identifier string [000000..999999] using CSPRNG.
+ */
+export function generateRandomDigits(digits = 6, randomSource) {
+  const max = 10 ** digits - 1;
+  const val = secureRandomInt(0, max, randomSource);
+  return String(val).padStart(digits, '0');
+}
+
+/**
+ * New tag reference: AT-<year>-<6 random digits>
+ * Uses CSPRNG algorithm with unbiased rejection sampling.
+ *
+ * Backward compatible:
+ * - Accepts `randomBytes` function `(n) => Buffer/Uint8Array`
+ * - Accepts `year` as second argument or as first argument if `randomBytes` omitted
+ * - Defaults to `globalThis.crypto.getRandomValues` when `randomBytes` is omitted
+ */
+export function generateReference(randomBytes, year) {
+  let yr = year;
+  let src = randomBytes;
+  if (typeof randomBytes === 'number' && year === undefined) {
+    yr = randomBytes;
+    src = undefined;
+  }
+  const resolvedYear = yr ?? new Date().getUTCFullYear();
+  const digits = generateRandomDigits(6, src);
+  return `AT-${resolvedYear}-${digits}`;
 }
 
 export function toQrPayload(reference) {
   return `${QR_PREFIX}${reference}`;
+}
+
+/**
+ * Generate a complete QR payload for a new baggage tag.
+ * Returns { reference, payload } where payload is formatted for QR encoding.
+ */
+export function generateQrPayload(randomSource, year) {
+  const reference = generateReference(randomSource, year);
+  return {
+    reference,
+    payload: toQrPayload(reference),
+  };
 }
 
 /** Normalise manual entry: trims, upper-cases, tolerates missing dashes and spaces. */

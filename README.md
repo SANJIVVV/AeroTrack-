@@ -27,6 +27,7 @@ The app distinguishes verified scan data from demonstration data, predictions, c
 ## Features
 
 - **Baggage lookup:** scan a QR code, paste QR content or a tracking link, or enter a baggage ID.
+- **RNG-based QR generation:** baggage tags and QR codes use a cryptographically secure RNG (CSPRNG) with unbiased rejection sampling to allocate unpredictable references (see [QR_RNG_INTEGRATION.md](QR_RNG_INTEGRATION.md)).
 - **Checkpoint tracking:** record baggage movement and view the scan history.
 - **Operations board:** staff can move baggage between workflow stages using mouse, touch, or keyboard.
 - **Anomaly alerts:** rule-based alerts highlight missed checkpoints, unusual scan sequences, and other operational issues.
