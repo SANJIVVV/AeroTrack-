@@ -21,6 +21,7 @@ try {
   const found = await col.findOne({ marker });
   await col.deleteOne({ marker });
   if (!found) throw new Error('wrote a marker document but could not read it back');
+  console.log("✅ DB Connected Successfully");
   console.log(`OK: connected to ${host}, database "${env.MONGODB_DB_NAME}". Ping, write, read and delete all succeeded.`);
   await mongoose.disconnect();
 } catch (err) {
