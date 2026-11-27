@@ -26,7 +26,15 @@ class SmtpSender {
       await this.transport.sendMail({ from: this.from, ...msg });
       return { status: 'sent', provider: 'smtp' };
     } catch (err) {
-      return { status: 'failed', error: err instanceof Error ? err.message.slice(0, 200) : 'Unknown error' };
+      logger.error(
+        {
+          code: err?.code,
+          command: err?.command,
+          responseCode: err?.responseCode,
+        },
+        'SMTP email delivery failed',
+      );
+      return { status: 'failed', provider: 'smtp' };
     }
   }
 }

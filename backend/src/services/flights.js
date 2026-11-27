@@ -30,11 +30,16 @@ export async function seedDemoFlights(now) {
   return docs;
 }
 
-/** On startup, create the directory and sample flights only if they are missing. */
+/** On startup, create the directory and sample flights only if they are missing or expired. */
 export async function ensureDirectory(now) {
   const airlines = await seedAirlines();
   const expected = sampleFlights(now).map((f) => f.flightNumber);
   const existing = await Flight.countDocuments({ isDemo: true, source: 'demo', flightNumber: { $in: expected } });
-  const flights = existing === expected.length ? 0 : (await seedDemoFlights(now)).length;
+  const upcomingCount = await Flight.countDocuments({
+    isDemo: true,
+    source: 'demo',
+    scheduledDeparture: { $gte: new Date(now.getTime() - 2 * 3600_000) },
+  });
+  const flights = existing === expected.length && upcomingCount > 0 ? 0 : (await seedDemoFlights(now)).length;
   return { airlines, flightsCreated: flights };
 }

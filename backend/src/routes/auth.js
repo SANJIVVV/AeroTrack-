@@ -4,7 +4,7 @@ import { z } from 'zod';
 
 import { Session, User } from '../models/index.js';
 import { DevOutboxSender } from '../integrations/email/index.js';
-import { issueOtp, verifyOtp } from '../services/otp.js';
+import { invalidateOtp, issueOtp, verifyOtp } from '../services/otp.js';
 import { SESSION_COOKIE, cookieOptions, requireAuth, startSession } from '../middleware/auth.js';
 import { parse } from '../validators/common.js';
 import { AppError, notFound } from '../utils/errors.js';
@@ -36,11 +36,15 @@ export function authRoutes(ctx, limiters) {
     const otp = await issueOtp(ctx, user._id, purpose);
     if (!otp) return null; // cooldown running; the previous code is still valid
     const verify = purpose === 'verify-email';
-    await ctx.email.send({
+    const result = await ctx.email.send({
       to: user.email,
       subject: verify ? 'Your AeroTrack Pro verification code' : 'Your AeroTrack Pro password reset code',
       text: `Hello ${user.name},\n\nYour ${verify ? 'verification' : 'password reset'} code is ${otp}.\nIt expires in 5 minutes and can be used once.\n\nIf you did not request this, you can ignore this email.`,
     });
+    if (result.status === 'failed' || result.status === 'disabled') {
+      await invalidateOtp(ctx, user._id, purpose);
+      throw new AppError(503, 'EMAIL_DELIVERY_FAILED', 'We could not send the email code. Please check the mail server settings and try again.');
+    }
     return otp;
   }
 
