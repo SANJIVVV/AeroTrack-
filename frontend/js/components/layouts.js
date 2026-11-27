@@ -161,7 +161,7 @@ function sideNav(user) {
       <div class="avatar" aria-hidden="true">${user.name.slice(0, 1).toUpperCase()}</div>
       <div class="min-w-0 flex-1">
         <p class="truncate small semibold">${user.name}</p>
-        <p class="xs muted capitalize">${user.role}${user.demo ? ' · demo' : ''}</p>
+        <p class="xs muted capitalize">${user.role}</p>
       </div>
       <button type="button" class="icon-btn icon-btn-sm" data-action="logout" aria-label="Sign out" title="Sign out">${icon('logOut')}</button>
     </div>
@@ -192,7 +192,6 @@ export function appLayout(app, navigate) {
           ${soundToggle()} ${themeToggle()}
         </div>
       </header>
-      ${user.demo ? html`<div class="banner banner-info" role="status">${icon('info')} Navigation demo: pages and links work locally; saving baggage or account changes requires an API.</div>` : ''}
       <div class="banner banner-warn" data-slot="offline" role="status" ${navigator.onLine ? html`hidden` : ''}>${icon('wifiOff')} You are offline. Information on screen may be out of date.</div>
       ${!user.emailVerified
         ? html`<div class="banner banner-info" role="status">${icon('mailWarning')} Your email is not verified yet, so you cannot register baggage. <a href="/settings" class="semibold underline">Resend verification</a></div>`
@@ -268,3 +267,4 @@ export function bareLayout(app) {
   app.innerHTML = '<div id="main-bare"></div>';
   return { main: app.firstElementChild, update() {}, destroy() {} };
 }
+

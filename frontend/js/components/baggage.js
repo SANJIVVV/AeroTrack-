@@ -180,7 +180,7 @@ export async function mountQrTag(root) {
   const dl = wrap.querySelector('[data-action=download-qr]');
   wrap.querySelector('[data-action=print-tag]').addEventListener('click', () => window.print());
   try {
-    const { default: QRCode } = await import('/vendor/qrcode.js');
+    const { default: QRCode } = await import('/libraries/qrcode.js');
     const url = await QRCode.toDataURL(toQrPayload(reference), { errorCorrectionLevel: 'M', margin: 2, width: 512, color: { dark: '#071426', light: '#ffffff' } });
     slot.innerHTML = String(html`<img src="${url}" width="200" height="200" alt="QR code for baggage ${reference}" />`);
     dl.disabled = false;

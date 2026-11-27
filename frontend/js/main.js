@@ -1,5 +1,5 @@
 /**
- * AeroTrack Pro browser app: plain ES modules with no frontend framework.
+ * AeroTrack Pro browser app: plain ES modules, no framework and no build step.
  * This file lists the routes, loads the signed-in user and draws each page
  * inside the right layout.
  */
@@ -35,7 +35,6 @@ const ROUTES = [
   { path: '/airlines', layout: 'public', load: page(airlines, 'airlinesPage') },
   { path: '/airlines/:code', layout: 'public', load: page(airlines, 'airlineDetailPage') },
   { path: '/tutorial', layout: 'public', load: page(general, 'tutorialPage') },
-  { path: '/dev-outbox', layout: 'public', load: page(authPages, 'devOutboxPage') },
   { path: '/forbidden', layout: 'public', load: page(general, 'forbiddenPage') },
 
   { path: '/login', layout: 'bare', load: page(authPages, 'loginPage') },
@@ -82,7 +81,7 @@ function errorPanel(err) {
     <div class="center">
       ${icon('alertOctagon', 'i-10 danger')}
       <h1 class="h2 mt-3">Something went wrong</h1>
-      <p class="muted mt-2">This page hit an unexpected error. Return home and try another page.</p>
+      <p class="muted mt-2">This page hit an unexpected error. Your data is safe on the server.</p>
       <div class="row center-row gap-2 mt-6">
         <button type="button" class="btn btn-primary" data-action="reload">Reload</button>
         <a class="btn btn-secondary" href="/">Home</a>

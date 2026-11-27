@@ -1,0 +1,28 @@
+{
+  "name": "aerotrack-pro",
+  "version": "0.2.0",
+  "private": true,
+  "description": "AeroTrack Pro: Smart Airport Baggage Tracking System (MCA project, PSG College of Technology). Plain HTML, CSS and JavaScript client; Node.js, Express and MongoDB server.",
+  "workspaces": [
+    "shared-utils",
+    "backend"
+  ],
+  "scripts": {
+    "dev": "npm run dev -w backend",
+    "start": "npm run start -w backend",
+    "build": "echo \"No build step: the client is plain HTML, CSS and JavaScript served by the Node.js server.\"",
+    "lint": "eslint .",
+    "seed": "npm run seed -w backend",
+    "db:check": "npm run db:check -w backend"
+  },
+  "engines": {
+    "node": ">=20.19"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.39.5",
+    "eslint": "^9.39.5",
+    "globals": "^16.5.0",
+    "prettier": "^3.6.2"
+  },
+  "type": "module"
+}
