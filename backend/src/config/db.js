@@ -19,12 +19,13 @@ mongoose.set('strictQuery', true);
 export async function connectDatabase(uri, dbName) {
   const safe = redactMongoUri(uri);
   try {
-    await mongoose.connect(uri, { dbName, serverSelectionTimeoutMS: 10_000, autoIndex: true });
+    await mongoose.connect(uri, { dbName, serverSelectionTimeoutMS: 10_000, autoIndex: true, family: 4 });
     logger.info({ host: safe, dbName }, 'MongoDB connected');
   } catch (err) {
     const message = err instanceof Error ? err.message : String(err);
+    const reason = err && typeof err === 'object' && 'reason' in err ? JSON.stringify(err.reason) : '';
     // Driver messages do not contain the password, but strip the URI anyway.
-    throw new Error(`Could not connect to MongoDB at ${safe}: ${message.replaceAll(uri, safe)}`);
+    throw new Error(`Could not connect to MongoDB at ${safe}: ${message.replaceAll(uri, safe)} ${reason ? `| reason: ${reason}` : ''}`);
   }
   mongoose.connection.on('disconnected', () => logger.warn('MongoDB disconnected'));
   mongoose.connection.on('reconnected', () => logger.info('MongoDB reconnected'));
