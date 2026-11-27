@@ -10,7 +10,8 @@
     "set-role": "node --env-file-if-exists=../.env src/scripts/setRole.js",
     "export:training": "node --env-file-if-exists=../.env src/scripts/exportTraining.js",
     "seed": "node --env-file-if-exists=../.env src/scripts/seedDirectory.js",
-    "db:check": "node --env-file-if-exists=../.env src/scripts/dbCheck.js"
+    "db:check": "node --env-file-if-exists=../.env src/scripts/dbCheck.js",
+    "create-user": "node --env-file-if-exists=../.env src/scripts/createUser.js"
   },
   "dependencies": {
     "@aerotrack/shared": "*",
