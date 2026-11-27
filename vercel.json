@@ -1,0 +1,43 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "version": 2,
+  "cleanUrls": true,
+  "rewrites": [
+    {
+      "source": "/api/(.*)",
+      "destination": "/api/index.js"
+    },
+    {
+      "source": "/shared/(.*)",
+      "destination": "/shared-utils/src/$1"
+    },
+    {
+      "source": "/icons/(.*)",
+      "destination": "/frontend/icons/$1"
+    },
+    {
+      "source": "/css/(.*)",
+      "destination": "/frontend/css/$1"
+    },
+    {
+      "source": "/js/(.*)",
+      "destination": "/frontend/js/$1"
+    },
+    {
+      "source": "/libraries/(.*)",
+      "destination": "/frontend/libraries/$1"
+    },
+    {
+      "source": "/manifest.webmanifest",
+      "destination": "/frontend/manifest.webmanifest"
+    },
+    {
+      "source": "/sw.js",
+      "destination": "/frontend/sw.js"
+    },
+    {
+      "source": "/((?!api/|shared/|icons/|css/|js/|libraries/).*)",
+      "destination": "/frontend/index.html"
+    }
+  ]
+}

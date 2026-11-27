@@ -1,0 +1,858 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>AeroTrack Pro — Academic Demonstration Handbook</title>
+  <style>
+    @page {
+      size: A4;
+      margin: 18mm 16mm 18mm 16mm;
+    }
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      color: #1e293b;
+      font-size: 9.5pt;
+      line-height: 1.55;
+      margin: 0;
+      padding: 0;
+      background: #ffffff;
+    }
+    .cover-page {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      border: 3px double #1e3a8a;
+      padding: 40px;
+      margin-bottom: 30px;
+      page-break-after: always;
+      text-align: center;
+    }
+    .cover-header h3 {
+      color: #1e3a8a;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      font-size: 13pt;
+      margin-bottom: 4px;
+    }
+    .cover-header p {
+      color: #64748b;
+      font-size: 10pt;
+      margin-top: 0;
+    }
+    .cover-body {
+      margin: auto 0;
+    }
+    .cover-title {
+      font-size: 26pt;
+      font-weight: 800;
+      color: #0f172a;
+      line-height: 1.2;
+      margin-bottom: 12px;
+    }
+    .cover-subtitle {
+      font-size: 12pt;
+      color: #3b82f6;
+      font-weight: 500;
+      max-width: 650px;
+      margin: 0 auto 30px auto;
+    }
+    .cover-badge {
+      display: inline-block;
+      background: #eff6ff;
+      color: #1e40af;
+      border: 1px solid #bfdbfe;
+      padding: 6px 16px;
+      border-radius: 9999px;
+      font-size: 9.5pt;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+    }
+    .cover-meta {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 20px;
+      max-width: 500px;
+      margin: 30px auto 0 auto;
+      text-align: left;
+    }
+    .cover-meta table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 0;
+    }
+    .cover-meta td {
+      padding: 4px 8px;
+      border: none;
+      font-size: 9.5pt;
+    }
+    .cover-meta td.label {
+      font-weight: 600;
+      color: #475569;
+      width: 40%;
+    }
+    .cover-meta td.val {
+      color: #0f172a;
+      font-weight: 500;
+    }
+    .cover-footer {
+      color: #64748b;
+      font-size: 8.5pt;
+      border-top: 1px solid #e2e8f0;
+      padding-top: 12px;
+    }
+
+    h1, h2, h3, h4 {
+      color: #0f172a;
+      page-break-after: avoid;
+      font-weight: 700;
+    }
+    h1 {
+      font-size: 15pt;
+      border-bottom: 2px solid #2563eb;
+      padding-bottom: 5px;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    h2 {
+      font-size: 12pt;
+      color: #1e40af;
+      margin-top: 18px;
+      margin-bottom: 8px;
+    }
+    h3 {
+      font-size: 10.5pt;
+      margin-top: 14px;
+      margin-bottom: 6px;
+    }
+    p {
+      margin-top: 0;
+      margin-bottom: 8px;
+      text-align: justify;
+    }
+    .page-break {
+      page-break-before: always;
+    }
+    
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 10px 0 16px 0;
+      font-size: 8.5pt;
+      page-break-inside: auto;
+    }
+    tr {
+      page-break-inside: avoid;
+      page-break-after: auto;
+    }
+    th {
+      background: #0f172a;
+      color: #ffffff;
+      padding: 6px 8px;
+      text-align: left;
+      font-weight: 600;
+      border: 1px solid #0f172a;
+    }
+    td {
+      border: 1px solid #cbd5e1;
+      padding: 5px 8px;
+      vertical-align: top;
+    }
+    tr:nth-child(even) td {
+      background: #f8fafc;
+    }
+    
+    code, pre {
+      font-family: "JetBrains Mono", Consolas, "Courier New", monospace;
+      font-size: 8pt;
+    }
+    code {
+      background: #f1f5f9;
+      color: #0f172a;
+      padding: 1px 4px;
+      border-radius: 3px;
+      border: 1px solid #e2e8f0;
+    }
+    pre {
+      background: #0f172a;
+      color: #f8fafc;
+      padding: 10px 14px;
+      border-radius: 6px;
+      overflow-x: auto;
+      margin: 8px 0 12px 0;
+      line-height: 1.4;
+    }
+    
+    .callout {
+      background: #eff6ff;
+      border-left: 4px solid #3b82f6;
+      padding: 10px 14px;
+      border-radius: 0 6px 6px 0;
+      margin: 10px 0 14px 0;
+      font-size: 9pt;
+    }
+    .callout-title {
+      font-weight: 700;
+      color: #1e40af;
+      margin-bottom: 4px;
+    }
+    .callout.alert {
+      background: #fef2f2;
+      border-left-color: #ef4444;
+    }
+    .callout.alert .callout-title {
+      color: #991b1b;
+    }
+
+    .viva-item {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 6px;
+      padding: 8px 12px;
+      margin-bottom: 10px;
+      page-break-inside: avoid;
+    }
+    .viva-q {
+      font-weight: 700;
+      color: #1e3a8a;
+      margin-bottom: 4px;
+      font-size: 9.5pt;
+    }
+    .viva-a {
+      color: #334155;
+      font-size: 9pt;
+    }
+    
+    .toc {
+      columns: 2;
+      column-gap: 30px;
+      margin: 16px 0 24px 0;
+    }
+    .toc-item {
+      break-inside: avoid;
+      font-size: 9pt;
+      margin-bottom: 6px;
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 1px dotted #cbd5e1;
+      padding-bottom: 2px;
+    }
+    .toc-title {
+      font-weight: 600;
+      color: #1e40af;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- COVER PAGE -->
+  <div class="cover-page">
+    <div class="cover-header">
+      <h3>PSG College of Technology, Coimbatore</h3>
+      <p>Department of Computer Applications · Master of Computer Applications (MCA)</p>
+    </div>
+    
+    <div class="cover-body">
+      <div class="cover-badge">ACADEMIC DEMONSTRATION & VIVA HANDBOOK</div>
+      <div class="cover-title" style="margin-top: 16px;">AeroTrack Pro</div>
+      <div class="cover-subtitle">Smart Airport Baggage Tracking and Monitoring System with CSPRNG QR Verification, Anomaly Detection & Explainable Delay-Risk Estimation</div>
+      
+      <div class="cover-meta">
+        <table>
+          <tr><td class="label">Candidate Name:</td><td class="val">Dheena Dhayal M</td></tr>
+          <tr><td class="label">Roll Number:</td><td class="val">26MX106</td></tr>
+          <tr><td class="label">Program:</td><td class="val">MCA (Master of Computer Applications)</td></tr>
+          <tr><td class="label">Subject / Course:</td><td class="val">Web Application Development (WAD)</td></tr>
+          <tr><td class="label">Academic Year:</td><td class="val">2026 – 2027</td></tr>
+          <tr><td class="label">Repository:</td><td class="val"><code style="font-size:7.5pt">dheena-dhayal/AEROTRACK_WAD_PROJECT</code></td></tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="cover-footer">
+      Autonomous Institution Affiliated to Anna University · Approved by AICTE · Accredited by NAAC with 'A' Grade
+    </div>
+  </div>
+
+  <!-- TABLE OF CONTENTS -->
+  <h1 style="margin-top:0;">Table of Contents</h1>
+  <div class="toc">
+    <div class="toc-item"><span class="toc-title">1. Project Overview</span><span>Ch. 1</span></div>
+    <div class="toc-item"><span class="toc-title">2. Problem Statement</span><span>Ch. 2</span></div>
+    <div class="toc-item"><span class="toc-title">3. Project Objectives</span><span>Ch. 3</span></div>
+    <div class="toc-item"><span class="toc-title">4. System Architecture</span><span>Ch. 4</span></div>
+    <div class="toc-item"><span class="toc-title">5. Technology Stack</span><span>Ch. 5</span></div>
+    <div class="toc-item"><span class="toc-title">6. Complete Module Overview</span><span>Ch. 6</span></div>
+    <div class="toc-item"><span class="toc-title">7. Module-by-Module Functionality</span><span>Ch. 7</span></div>
+    <div class="toc-item"><span class="toc-title">8. Frontend Architecture</span><span>Ch. 8</span></div>
+    <div class="toc-item"><span class="toc-title">9. Backend Architecture</span><span>Ch. 9</span></div>
+    <div class="toc-item"><span class="toc-title">10. Complete API Routes Guide</span><span>Ch. 10</span></div>
+    <div class="toc-item"><span class="toc-title">11. MongoDB Atlas Configuration</span><span>Ch. 11</span></div>
+    <div class="toc-item"><span class="toc-title">12. Database Models & Schemas</span><span>Ch. 12</span></div>
+    <div class="toc-item"><span class="toc-title">13. Authentication, Sessions & RBAC</span><span>Ch. 13</span></div>
+    <div class="toc-item"><span class="toc-title">14. CRUD Operations Breakdown</span><span>Ch. 14</span></div>
+    <div class="toc-item"><span class="toc-title">15. Important Algorithms (CSPRNG)</span><span>Ch. 15</span></div>
+    <div class="toc-item"><span class="toc-title">16. Anomaly Detection Engine</span><span>Ch. 16</span></div>
+    <div class="toc-item"><span class="toc-title">17. Delay-Risk Prediction Engine</span><span>Ch. 17</span></div>
+    <div class="toc-item"><span class="toc-title">18. Frontend-Backend Communication</span><span>Ch. 18</span></div>
+    <div class="toc-item"><span class="toc-title">19. File-by-File Code Mapping</span><span>Ch. 19</span></div>
+    <div class="toc-item"><span class="toc-title">20. Local Environment Execution</span><span>Ch. 20</span></div>
+    <div class="toc-item"><span class="toc-title">21. Cloud Deployment Architecture</span><span>Ch. 21</span></div>
+    <div class="toc-item"><span class="toc-title">22. Troubleshooting & Resolution</span><span>Ch. 22</span></div>
+    <div class="toc-item"><span class="toc-title">23. Automated Testing Results</span><span>Ch. 23</span></div>
+    <div class="toc-item"><span class="toc-title">24. Academic Limitations & Scope</span><span>Ch. 24</span></div>
+    <div class="toc-item"><span class="toc-title">25. Master Viva Q&A (40+ Questions)</span><span>Ch. 25</span></div>
+    <div class="toc-item"><span class="toc-title">26. Quick Viva Code Lookup</span><span>Ch. 26</span></div>
+  </div>
+
+  <div class="page-break"></div>
+
+  <!-- CHAPTER 1 & 2 -->
+  <h1>Chapter 1: Project Overview</h1>
+  <p>
+    <strong>AeroTrack Pro</strong> is an enterprise-grade full-stack airport baggage tracking, auditing, and anomaly monitoring platform designed for modern aviation operations. The application tracks passenger luggage through physical checkpoints—from initial check-in through security screening, aircraft ramp loading, in-flight transit, arrival ramp processing, reclaim belts, and passenger collection.
+  </p>
+  <p>
+    Unlike conventional systems that expose black-box estimates or predictable linear baggage tags, AeroTrack Pro introduces <strong>Cryptographically Secure Random Number Generation (CSPRNG)</strong> with <strong>unbiased rejection sampling</strong> for luggage reference tags, strict state-machine journey validations, transparent rules-based anomaly detection, and an explainable delay-risk estimation framework.
+  </p>
+
+  <h1>Chapter 2: Problem Statement</h1>
+  <p>Airport ground operations face severe challenges in luggage handling:</p>
+  <ul>
+    <li><strong>Passenger Uncertainty:</strong> Passengers face complete information blackouts once luggage enters conveyor holds, resulting in high support burdens and flight anxieties.</li>
+    <li><strong>Predictable Luggage Identifiers:</strong> Baggage IDs generated via naive counters or pseudo-random modulo formulas suffer from predictable modulo bias, creating vulnerabilities where luggage references can be guessed or spoofed.</li>
+    <li><strong>Undetected Screening Bottlenecks:</strong> When luggage stalls at security screening or sorting rings, ground handlers typically discover delays only after flight departure.</li>
+    <li><strong>Opaque Risk Scoring:</strong> Ground handlers are reluctant to act on automated delay warnings when machine-learning systems provide no transparent justification.</li>
+  </ul>
+
+  <h1>Chapter 3: Project Objectives</h1>
+  <ul>
+    <li>Build a secure, collision-resistant baggage tag generation engine using cryptographic entropy and unbiased rejection sampling.</li>
+    <li>Implement a deterministic journey state machine that enforces forward progress and alerts when mandatory checkpoints (such as hold-baggage screening) are bypassed.</li>
+    <li>Deliver optical camera-based QR code scanning with idempotency safeguards preventing duplicate scan logs.</li>
+    <li>Design an explainable delay-risk scoring module that decomposes operational factors (dwell time, flight delays, missed scans) for human review.</li>
+    <li>Establish role-based portals for Passengers, Ground Handlers, and Airport Administrators.</li>
+  </ul>
+
+  <div class="page-break"></div>
+
+  <!-- CHAPTER 4: SYSTEM ARCHITECTURE -->
+  <h1>Chapter 4: System Architecture</h1>
+  <p>AeroTrack Pro utilizes a decoupled 3-tier web architecture:</p>
+  
+  <div class="callout">
+    <div class="callout-title">Architectural Highlights</div>
+    <strong>Presentation Layer:</strong> Plain HTML5, CSS3, and native ECMAScript Modules (ESM) delivered directly by Express with zero build step.<br>
+    <strong>Gateway & Security Tier:</strong> Helmet CSP headers, Express Rate Limiters, strict CORS whitelisting, and custom Anti-CSRF verification (`X-Requested-With: aerotrack`).<br>
+    <strong>Domain Tier:</strong> Shared business rules (`@aerotrack/shared`) housing state machine graphs, anomaly heuristics, and CSPRNG routines.<br>
+    <strong>Persistence Tier:</strong> MongoDB Atlas cloud replica set storing document models with Mongoose ODM.
+  </div>
+
+  <table style="margin-top:14px;">
+    <thead>
+      <tr><th>Tier</th><th>Primary Technologies</th><th>Key Responsibilities</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Client Layer</strong></td>
+        <td>HTML5, CSS3, ES Modules, html5-qrcode</td>
+        <td>Client-side routing (History API), live camera barcode scanning, interactive operations board, responsive UI rendering.</td>
+      </tr>
+      <tr>
+        <td><strong>Security Gateway</strong></td>
+        <td>Helmet, CORS, Express-Rate-Limit</td>
+        <td>CSP enforcement, frameguard, anti-CSRF token verification, brute-force rate mitigation.</td>
+      </tr>
+      <tr>
+        <td><strong>Application Layer</strong></td>
+        <td>Node.js 20+, Express 5.1</td>
+        <td>REST API endpoints, session authentication, anomaly sweep background worker, DTO serializers.</td>
+      </tr>
+      <tr>
+        <td><strong>Domain Engine</strong></td>
+        <td>@aerotrack/shared</td>
+        <td>Single source of truth for journey state machines, rejection sampling RNG, and delay-risk heuristics.</td>
+      </tr>
+      <tr>
+        <td><strong>Data Layer</strong></td>
+        <td>MongoDB Atlas, Mongoose 8.24</td>
+        <td>Document persistence, compound indexes, atomic transaction logs, audit event recording.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h1>Chapter 5: Technology Stack & Rationale</h1>
+  <table>
+    <thead><tr><th>Technology</th><th>Role</th><th>Academic & Engineering Rationale</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Node.js 20+</strong></td><td>Runtime</td><td>Event-driven non-blocking I/O, built-in test runner (`node:test`), native crypto modules.</td></tr>
+      <tr><td><strong>Express 5.1</strong></td><td>Backend</td><td>Express 5 provides native asynchronous error propagation, robust routing, and clean middleware chains.</td></tr>
+      <tr><td><strong>MongoDB Atlas</strong></td><td>Database</td><td>Document data model maps directly to JSON baggage entities, scan events, and audit logs without rigid join complexity.</td></tr>
+      <tr><td><strong>Mongoose 8.24</strong></td><td>ODM</td><td>Enforces strict schema typing, pre-save sanitization, and model relationship population.</td></tr>
+      <tr><td><strong>Vanilla ESM</strong></td><td>Frontend</td><td>Zero build overhead, transparent browser debugging, fast load times, and no bundler fragility.</td></tr>
+      <tr><td><strong>Bcryptjs</strong></td><td>Security</td><td>Cryptographic salt-and-hash (12 rounds) with dummy constant-time timing guards against user enumeration.</td></tr>
+      <tr><td><strong>Zod 4.1</strong></td><td>Validation</td><td>Runtime payload validation that intercepts and sanitizes malformed parameters before reaching queries.</td></tr>
+    </tbody>
+  </table>
+
+  <div class="page-break"></div>
+
+  <!-- CHAPTER 6 & 7: MODULES -->
+  <h1>Chapter 6: Complete Module Overview</h1>
+  <p>AeroTrack Pro is structured into 10 decoupled functional modules:</p>
+  <table>
+    <thead><tr><th>Module</th><th>Users</th><th>Description</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Authentication & RBAC</strong></td><td>All</td><td>Email registration, password hashing, 6-digit OTP challenges, session cookie management, and role gating (`passenger`, `staff`, `admin`).</td></tr>
+      <tr><td><strong>Baggage Registration</strong></td><td>Passenger</td><td>Flight luggage check-in, color/weight capture, and CSPRNG tag reference allocation.</td></tr>
+      <tr><td><strong>QR Generation & Tagging</strong></td><td>Passenger/Staff</td><td>Synthesizes standardized `AEROTRACK:BAG:AT-YYYY-DDDDDD` payloads and renders clean printable SVG tags.</td></tr>
+      <tr><td><strong>Tracking & Universal Lookup</strong></td><td>All</td><td>Resolves luggage status by camera scan, direct reference ID, or web link.</td></tr>
+      <tr><td><strong>Checkpoint Scanning</strong></td><td>Staff</td><td>Optical camera scan processing, station validation, and idempotency duplicate rejection.</td></tr>
+      <tr><td><strong>Operations Board</strong></td><td>Staff/Admin</td><td>Interactive kanban workflow allowing handlers to move luggage across workflow stages with optimistic locking.</td></tr>
+      <tr><td><strong>Anomaly Detection Engine</strong></td><td>Staff/Admin</td><td>Detects dwell-time stalls, skipped mandatory screening stations, duplicate rapid scans, and flight airport mismatches.</td></tr>
+      <tr><td><strong>Delay-Risk Prediction</strong></td><td>All</td><td>Extracts 9-feature operational vectors and computes explainable delay probability.</td></tr>
+      <tr><td><strong>Checkpoint & Flight Admin</strong></td><td>Admin</td><td>Configures airport scanning stations, adds manual flights, and manages active rosters.</td></tr>
+      <tr><td><strong>Incident Claims</strong></td><td>Passenger/Staff</td><td>Reports missing, damaged, or delayed baggage with resolution tracking.</td></tr>
+    </tbody>
+  </table>
+
+  <h1>Chapter 7: Module-by-Module Functionality</h1>
+  <h3>The 8-Stage Baggage Journey State Machine</h3>
+  <p>Luggage follows a strictly validated linear progression defined in <code>shared-utils/src/status.js</code>:</p>
+  <pre>REGISTERED -> CHECKED_IN -> SECURITY_SCREENING -> LOADED -> IN_TRANSIT -> ARRIVED -> ON_BELT -> COLLECTED</pre>
+  <ul>
+    <li><strong>Forward Skips:</strong> Moving from <code>CHECKED_IN</code> directly to <code>LOADED</code> is permitted operationally (to avoid blocking luggage physically), but immediately flags a <strong>high-severity MISSING_CHECKPOINT anomaly</strong> because mandatory security screening was missed.</li>
+    <li><strong>Backward Moves:</strong> Attempting to regress luggage status (e.g. <code>LOADED</code> $\to$ <code>CHECKED_IN</code>) is rejected with <code>INVALID_SEQUENCE</code>.</li>
+    <li><strong>Exception States:</strong> <code>DELAYED</code>, <code>MISSING</code>, and <code>INCIDENT_REPORTED</code> can be entered from any active stage and exited by resuming the main flow.</li>
+  </ul>
+
+  <div class="page-break"></div>
+
+  <!-- CHAPTER 8 & 9: ARCHITECTURE DETAILS -->
+  <h1>Chapter 8: Frontend Architecture & Structure</h1>
+  <p>The frontend lives in <code>frontend/</code> and is delivered without any compilation step:</p>
+  <ul>
+    <li><code>index.html</code>: Main application shell with pre-connected typography and `#app` container.</li>
+    <li><code>js/theme-init.js</code>: Synchronously reads local storage and sets the dark/light theme class before first paint to prevent visual flash.</li>
+    <li><code>js/config.js</code>: Exposes <code>window.AEROTRACK_API_BASE</code>, enabling easy decoupling for Vercel/Render hosting.</li>
+    <li><code>js/main.js</code>: The central route definition table matching URL paths to layout wrappers (<code>public</code>, <code>app</code>, <code>bare</code>) and role access checks.</li>
+    <li><code>js/lib/router.js</code>: Handles client-side navigation using the HTML5 History API (<code>navigate</code>, <code>currentRoute</code>).</li>
+    <li><code>js/lib/api.js</code>: Central HTTP fetch client that automatically attaches <code>X-Requested-With: aerotrack</code> to satisfy backend anti-CSRF rules.</li>
+  </ul>
+
+  <h1>Chapter 9: Backend Architecture & Structure</h1>
+  <p>The backend lives in <code>backend/</code> and follows an enterprise 3-tier Layered MVC (Model-View-Controller & Service) design pattern on Express 5:</p>
+  <ul>
+    <li><code>backend/server.js</code> & <code>backend/seed.js</code>: Root forwarders for standard npm scripts and CLI commands.</li>
+    <li><code>src/index.js</code>: The runtime entry point. Calls <code>bootstrap()</code>, seeds directory flights, attaches HTTP listener, and starts background sweeper.</li>
+    <li><code>src/app.js</code>: Instantiates Express, configures Helmet CSP, CORS, cookie parsing, rate limiters, mounts modular route registries, and SPA static file fallback.</li>
+    <li><code>src/controllers/</code>: Decoupled HTTP request handlers (12 controllers: <code>authController</code>, <code>baggageController</code>, <code>checkpointController</code>, <code>scanController</code>, <code>alertController</code>, <code>adminController</code>, <code>flightController</code>, <code>incidentController</code>, <code>userController</code>, <code>airlineController</code>, <code>notificationController</code>, <code>healthController</code>).</li>
+    <li><code>src/routes/</code>: Modular HTTP route definitions (<code>*Routes.js</code>) binding URLs, security middleware (RBAC, CSRF), and delegating to controllers.</li>
+    <li><code>src/services/</code>: Reusable, framework-agnostic domain logic (<code>baggageService</code>, <code>anomalyService</code>, <code>predictionService</code>, <code>otpService</code>, <code>flightService</code>, <code>auditService</code>, <code>notificationService</code>, <code>tracking</code>, <code>sweep</code>, <code>serializers</code>).</li>
+    <li><code>src/middleware/</code>: Express middleware pipeline (<code>authMiddleware</code>, <code>securityMiddleware</code>, <code>errorMiddleware</code>).</li>
+    <li><code>src/config/db.js</code> & <code>env.js</code>: Mongoose Atlas connection manager and Zod environment schema validation.</li>
+  </ul>
+
+  <h1>Chapter 10: Complete API Routes Guide</h1>
+  <table>
+    <thead><tr><th>Method</th><th>Endpoint</th><th>Auth / Role</th><th>Functionality</th></tr></thead>
+    <tbody>
+      <tr><td><code>GET</code></td><td><code>/api/health</code></td><td>Public</td><td>Service readiness and database ping verification.</td></tr>
+      <tr><td><code>POST</code></td><td><code>/api/auth/register</code></td><td>Public</td><td>Creates unverified account and issues 6-digit OTP.</td></tr>
+      <tr><td><code>POST</code></td><td><code>/api/auth/verify-otp</code></td><td>Public</td><td>Verifies 6-digit OTP and begins user session.</td></tr>
+      <tr><td><code>POST</code></td><td><code>/api/auth/login</code></td><td>Public</td><td>Validates credentials with constant-time dummy hash guard.</td></tr>
+      <tr><td><code>POST</code></td><td><code>/api/auth/logout</code></td><td>Authenticated</td><td>Terminates session document and clears cookie.</td></tr>
+      <tr><td><code>GET</code></td><td><code>/api/baggage</code></td><td>Authenticated</td><td>Lists user bags (passengers) or searches all (staff).</td></tr>
+      <tr><td><code>POST</code></td><td><code>/api/baggage</code></td><td>Verified Passenger</td><td>Registers bag with CSPRNG reference and flight link.</td></tr>
+      <tr><td><code>GET</code></td><td><code>/api/baggage/board</code></td><td>Staff / Admin</td><td>Retrieves active luggage roster for Operations Board.</td></tr>
+      <tr><td><code>GET</code></td><td><code>/api/baggage/:ref/qr</code></td><td>Owner / Staff</td><td>Returns QR payload string and clean SVG markup.</td></tr>
+      <tr><td><code>GET</code></td><td><code>/api/baggage/:ref/prediction</code></td><td>Owner / Staff</td><td>Returns explainable delay-risk probability and factor breakdown.</td></tr>
+      <tr><td><code>POST</code></td><td><code>/api/scans</code></td><td>Staff / Admin</td><td>Records camera checkpoint scan with idempotency key.</td></tr>
+      <tr><td><code>GET</code></td><td><code>/api/checkpoints</code></td><td>Authenticated</td><td>Lists airport physical checkpoint scanning stations.</td></tr>
+      <tr><td><code>GET</code></td><td><code>/api/admin/analytics</code></td><td>Staff / Admin</td><td>Returns operational KPIs, status counts, and dwell trends.</td></tr>
+    </tbody>
+  </table>
+
+  <div class="page-break"></div>
+
+  <!-- CHAPTER 11 & 12: DATABASE -->
+  <h1>Chapter 11: MongoDB Atlas Configuration & Security</h1>
+  <p>MongoDB Atlas provides resilient, highly available cloud document storage:</p>
+  <ul>
+    <li><strong>Replica Set Architecture:</strong> Data is automatically replicated across nodes for zero data loss.</li>
+    <li><strong>Credential Protection:</strong> Passwords reside only in `.env` and deployment secrets. They are never committed.</li>
+    <li><strong>URL Encoding:</strong> Passwords containing reserved characters are safely URL-encoded before connection.</li>
+    <li><strong>Automatic Redaction:</strong> <code>redactMongoUri()</code> ensures logs show only <code>mongodb+srv://***:***@cluster.mongodb.net/aerotrack_pro</code>.</li>
+  </ul>
+
+  <h1>Chapter 12: Database Models & Schemas</h1>
+  <table>
+    <thead><tr><th>Model</th><th>Collection</th><th>Key Fields</th><th>Indexes</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><strong>User</strong></td>
+        <td><code>users</code></td>
+        <td><code>name</code>, <code>email</code>, <code>passwordHash</code>, <code>role</code>, <code>emailVerified</code>, <code>disabled</code></td>
+        <td><code>{ email: 1 } (unique)</code></td>
+      </tr>
+      <tr>
+        <td><strong>Session</strong></td>
+        <td><code>sessions</code></td>
+        <td><code>user</code>, <code>tokenHash</code>, <code>expiresAt</code>, <code>ip</code>, <code>userAgent</code></td>
+        <td><code>{ tokenHash: 1 } (unique)</code>, <code>{ expiresAt: 1 }</code></td>
+      </tr>
+      <tr>
+        <td><strong>Baggage</strong></td>
+        <td><code>baggages</code></td>
+        <td><code>reference</code>, <code>owner</code>, <code>flight</code>, <code>status</code>, <code>lastMainStatus</code>, <code>version</code></td>
+        <td><code>{ reference: 1 } (unique)</code>, <code>{ status: 1, lastScanAt: 1 }</code></td>
+      </tr>
+      <tr>
+        <td><strong>BaggageEvent</strong></td>
+        <td><code>baggageevents</code></td>
+        <td><code>baggage</code>, <code>status</code>, <code>checkpoint</code>, <code>actor</code>, <code>idempotencyKey</code></td>
+        <td><code>{ baggage: 1, occurredAt: -1 }</code>, <code>{ idempotencyKey: 1 } (unique, sparse)</code></td>
+      </tr>
+      <tr>
+        <td><strong>Checkpoint</strong></td>
+        <td><code>checkpoints</code></td>
+        <td><code>code</code>, <code>name</code>, <code>airport</code>, <code>type</code>, <code>active</code></td>
+        <td><code>{ code: 1 } (unique)</code></td>
+      </tr>
+      <tr>
+        <td><strong>Flight</strong></td>
+        <td><code>flights</code></td>
+        <td><code>airlineCode</code>, <code>flightNumber</code>, <code>origin</code>, <code>destination</code>, <code>status</code></td>
+        <td><code>{ flightNumber: 1, scheduledDeparture: 1 }</code></td>
+      </tr>
+      <tr>
+        <td><strong>AnomalyAlert</strong></td>
+        <td><code>anomalyalerts</code></td>
+        <td><code>baggage</code>, <code>type</code>, <code>severity</code>, <code>reason</code>, <code>status</code>, <code>dedupeKey</code></td>
+        <td><code>{ detectedAt: -1 }</code>, <code>{ dedupeKey: 1 } (unique, sparse)</code></td>
+      </tr>
+      <tr>
+        <td><strong>AuditEvent</strong></td>
+        <td><code>auditevents</code></td>
+        <td><code>actor</code>, <code>action</code>, <code>targetType</code>, <code>targetId</code>, <code>meta</code>, <code>at</code></td>
+        <td><code>{ at: -1 }</code>, <code>{ action: 1 }</code></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h1>Chapter 13: Authentication, Session Management & RBAC</h1>
+  <p>AeroTrack Pro avoids stateless JWT vulnerabilities by implementing secure server-side sessions:</p>
+  <ul>
+    <li><strong>Password Security:</strong> Hashed using `bcryptjs` with 12 salt rounds. Dummy hashes mitigate user enumeration timing attacks.</li>
+    <li><strong>6-Digit OTP Challenges:</strong> Stored hashed in `OtpChallenge`. Challenges expire in 5 minutes with a 60-second request cooldown.</li>
+    <li><strong>Session Storage:</strong> Stored in MongoDB `sessions` collection with crypto-random tokens sent in `HttpOnly`, `SameSite=lax` cookies.</li>
+    <li><strong>Role-Based Access Control:</strong> Supported roles: `passenger`, `staff`, and `admin`. Admin actions require `requireRole('admin')`.</li>
+  </ul>
+
+  <div class="page-break"></div>
+
+  <!-- CHAPTER 14 & 15: CRUD & ALGORITHMS -->
+  <h1>Chapter 14: CRUD Operations Breakdown</h1>
+  <table>
+    <thead><tr><th>Operation</th><th>HTTP & Route</th><th>Target Model</th><th>Business Rules & Safeguards</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Create Baggage</strong></td><td><code>POST /api/baggage</code></td><td><code>Baggage</code></td><td>Max 10 bags per user/flight. Generates CSPRNG reference with retry on collision.</td></tr>
+      <tr><td><strong>Read Baggage</strong></td><td><code>GET /api/baggage/:ref</code></td><td><code>Baggage</code></td><td>Passengers can only read their own bags (returns 404 to avoid leaking reference existence).</td></tr>
+      <tr><td><strong>Update Status</strong></td><td><code>PATCH /api/baggage/:ref/status</code></td><td><code>Baggage</code></td><td>Enforces journey state machine transitions. Optimistic concurrency lock via <code>version</code> / <code>If-Match</code>.</td></tr>
+      <tr><td><strong>Delete Baggage</strong></td><td><code>DELETE /api/baggage/:ref</code></td><td><code>Baggage</code></td><td>Only allowed if status is still <code>REGISTERED</code> (cannot delete checked-in luggage).</td></tr>
+    </tbody>
+  </table>
+
+  <h1>Chapter 15: Important Algorithms & Formulations</h1>
+  <h3>CSPRNG Unbiased Rejection Sampling</h3>
+  <p>Standard modulo generation introduces <strong>modulo bias</strong> when range $M$ does not divide $2^{32}$. AeroTrack Pro's rejection sampling algorithm in <code>shared-utils/src/qr.js</code>:</p>
+  <div class="callout">
+    <div class="callout-title">Mathematical Formulation</div>
+    1. Range size $M = 1,000,000$. Max 32-bit unsigned integer $2^{32} = 4,294,967,296$.<br>
+    2. Rejection limit: $\text{limit} = 2^{32} - (2^{32} \pmod M) = 4,294,000,000$.<br>
+    3. Sample $n \sim \text{Uint32}$ from <code>crypto.getRandomValues</code>.<br>
+    4. If $n \ge \text{limit}$, reject and resample.<br>
+    5. If $n < \text{limit}$, return $n \pmod M$. Every remainder has uniform probability $P = 10^{-6}$. Rejection probability is only $0.0225\%$.
+  </div>
+
+  <h1>Chapter 16: Anomaly Detection Engine</h1>
+  <p>Evaluates incoming scans against 5 operational rules in <code>shared-utils/src/anomaly.js</code>:</p>
+  <table>
+    <thead><tr><th>Anomaly Rule</th><th>Trigger Condition</th><th>Severity</th><th>Action Taken</th></tr></thead>
+    <tbody>
+      <tr><td><strong>DUPLICATE_SCAN</strong></td><td>Same checkpoint & status within 120 seconds</td><td>Low</td><td>Ignored as accidental double-read; no status update.</td></tr>
+      <tr><td><strong>INVALID_SEQUENCE</strong></td><td>Scan attempts backwards status move</td><td>Medium</td><td>Rejected; requires physical bag confirmation.</td></tr>
+      <tr><td><strong>MISSING_CHECKPOINT</strong></td><td>Forward jump over intermediate stations</td><td>High (if security)</td><td>Recorded, but raises alert to verify physical screening.</td></tr>
+      <tr><td><strong>FLIGHT_MISMATCH</strong></td><td>Scan airport does not match origin/dest</td><td>High</td><td>Recorded; alerts that bag may be misrouted.</td></tr>
+      <tr><td><strong>PROLONGED_DWELL</strong></td><td>Bag stays at station beyond warning threshold</td><td>Medium</td><td>Background sweeper raises dwell alert.</td></tr>
+    </tbody>
+  </table>
+
+  <div class="page-break"></div>
+
+  <!-- CHAPTER 17 & 18: PREDICTION & COMMS -->
+  <h1>Chapter 17: Delay-Risk Prediction Engine</h1>
+  <p>Extracts a 9-dimensional operational vector at prediction time:</p>
+  <pre>[stageIndex, minutesSinceLastScan, dwellRatio, skippedCheckpoints, openAnomalies, flightDelayed, flightCancelled, minutesToDeparture, notLoadedNearDeparture]</pre>
+  <ul>
+    <li><strong>Rules Baseline Heuristic:</strong> Additive formula starting at 0.05 base risk. Dwell time contributes up to +0.40, skipped checkpoints +0.25, departure proximity without loading +0.30. Bounded strictly in $[0.05, 1.0]$.</li>
+    <li><strong>Explainability Factor Breakdown:</strong> Each factor contributing $>0$ is displayed in the UI with an plain-English explanation.</li>
+    <li><strong>Logistic Regression ML Fallback:</strong> If <code>delay_model.json</code> is provided, computes logistic log-odds $z = \beta_0 + \sum \beta_i x_i$ and sigmoid probability $\hat{P} = \frac{1}{1 + e^{-z}}$.</li>
+  </ul>
+
+  <h1>Chapter 18: Frontend-Backend Communication Flow</h1>
+  <div class="callout">
+    <div class="callout-title">End-to-End Request Lifecycle</div>
+    1. User submits form in browser.<br>
+    2. Client helper <code>request()</code> in <code>frontend/js/lib/api.js</code> appends <code>X-Requested-With: aerotrack</code> and <code>credentials: 'include'</code>.<br>
+    3. Express receives request $\to$ Helmet CSP verifies headers $\to$ CORS checks origin $\to$ Rate limiter checks quotas $\to$ CSRF middleware confirms header $\to$ Session middleware looks up user.<br>
+    4. Route controller validates request body using Zod schema.<br>
+    5. Domain service checks state transition and updates MongoDB Atlas using Mongoose.<br>
+    6. Response serialized to safe DTO and returned as JSON.<br>
+    7. Frontend updates DOM and displays confirmation toast.
+  </div>
+
+  <h1>Chapter 19: File-by-File Code Mapping</h1>
+  <table>
+    <thead><tr><th>File Path</th><th>Module</th><th>Key Purpose & Functions</th></tr></thead>
+    <tbody>
+      <tr><td><code>backend/src/controllers/authController.js</code></td><td>Auth Controller</td><td><code>register</code>, <code>verifyOtp</code>, <code>login</code>, <code>logout</code></td></tr>
+      <tr><td><code>backend/src/controllers/baggageController.js</code></td><td>Baggage Controller</td><td><code>createBaggage</code>, <code>getBaggageByRef</code>, <code>updateBaggageStatus</code></td></tr>
+      <tr><td><code>backend/src/controllers/checkpointController.js</code></td><td>Checkpoint Controller</td><td><code>listCheckpoints</code>, <code>createCheckpoint</code>, <code>patchCheckpoint</code></td></tr>
+      <tr><td><code>backend/src/controllers/scanController.js</code></td><td>Scan Controller</td><td><code>processScan</code>, <code>getRecentScans</code></td></tr>
+      <tr><td><code>backend/src/controllers/alertController.js</code></td><td>Alert Controller</td><td><code>listAlerts</code>, <code>patchAlert</code>, <code>triggerSweep</code></td></tr>
+      <tr><td><code>backend/src/controllers/adminController.js</code></td><td>Admin Controller</td><td><code>getAnalytics</code>, <code>listUsers</code>, <code>updateUserRole</code></td></tr>
+      <tr><td><code>backend/src/routes/authRoutes.js</code></td><td>Auth Routes</td><td>Modular authentication route declarations</td></tr>
+      <tr><td><code>backend/src/routes/baggageRoutes.js</code></td><td>Baggage Routes</td><td>Modular luggage tracking and board route declarations</td></tr>
+      <tr><td><code>backend/src/routes/scanRoutes.js</code></td><td>Scan Routes</td><td>Modular barcode scan route declarations</td></tr>
+      <tr><td><code>backend/src/services/baggageService.js</code></td><td>Baggage Service</td><td>State transitions, CSPRNG collision retry, optimistic locking</td></tr>
+      <tr><td><code>backend/src/services/anomalyService.js</code></td><td>Anomaly Service</td><td>Dwell sweeps, alert deduplication, alert dispatch</td></tr>
+      <tr><td><code>backend/src/services/predictionService.js</code></td><td>Prediction Service</td><td>Delay-risk scoring and machine-learning model loader</td></tr>
+      <tr><td><code>shared-utils/src/qr.js</code></td><td>QR Engine</td><td><code>secureRandomInt</code>, <code>generateReference</code>, <code>toQrPayload</code></td></tr>
+      <tr><td><code>shared-utils/src/status.js</code></td><td>Journey Rules</td><td><code>checkTransition</code>, <code>allowedNextStatuses</code>, <code>nextMainStep</code></td></tr>
+      <tr><td><code>shared-utils/src/anomaly.js</code></td><td>Anomaly Engine</td><td><code>evaluateScan</code>, <code>evaluateDwell</code>, <code>evaluateScanFailures</code></td></tr>
+      <tr><td><code>shared-utils/src/prediction.js</code></td><td>Delay Risk</td><td><code>buildFeatures</code>, <code>baselineRisk</code>, <code>logisticRisk</code></td></tr>
+      <tr><td><code>backend/src/app.js</code></td><td>Core Server</td><td>Express 5 configuration, security middleware, static file serving</td></tr>
+      <tr><td><code>backend/src/config/db.js</code></td><td>Database</td><td><code>connectDatabase</code>, <code>pingDatabase</code>, readyState caching</td></tr>
+      <tr><td><code>frontend/js/main.js</code></td><td>Client Core</td><td>Client routing, layout mounting, auth state listener</td></tr>
+      <tr><td><code>frontend/js/lib/api.js</code></td><td>Client Network</td><td>Fetch client with automatic anti-CSRF header injection</td></tr>
+    </tbody>
+  </table>
+
+  <div class="page-break"></div>
+
+  <!-- CHAPTER 20, 21, 22: RUNNING & TROUBLESHOOTING -->
+  <h1>Chapter 20: Local Environment Execution Guide</h1>
+  <pre># 1. Clone repository
+git clone https://github.com/dheena-dhayal/AEROTRACK_WAD_PROJECT.git
+cd AEROTRACK_WAD_PROJECT
+
+# 2. Install dependencies
+npm install
+
+# 3. Configure environment
+cp .env.example .env
+# Edit .env and supply your MONGODB_URI and SESSION_SECRET
+
+# 4. Verify MongoDB Atlas connectivity
+npm run db:check
+
+# 5. Seed demonstration flights and airlines
+npm run seed
+
+# 6. Seed starter checkpoints for Chennai and Delhi
+npm run seed:checkpoints -- MAA DEL
+
+# 7. Start application in development mode
+npm run dev
+# Open http://localhost:4000
+
+# 8. Run automated test suite
+npm test</pre>
+
+  <h1>Chapter 21: Cloud Deployment Architecture</h1>
+  <ul>
+    <li><strong>Render Web Service (Recommended):** Configured via <code>render.yaml</code>. Runs backend and frontend together in a continuous container. Preserves background anomaly sweeps, in-memory OTP diagnostics, and persistent connection pools.</li>
+    <li><strong>Vercel Serverless (Supported):** Configured via <code>vercel.json</code> and <code>api/index.js</code>. Serves <code>frontend/</code> via high-speed global Edge CDN and routes <code>/api/*</code> to serverless lambda functions. Note: Background interval sweeper freezes between serverless requests.</li>
+  </ul>
+
+  <h1>Chapter 22: Troubleshooting & Error Resolution</h1>
+  <table>
+    <thead><tr><th>Observed Symptom</th><th>Underlying Cause</th><th>Prescribed Technical Remedy</th></tr></thead>
+    <tbody>
+      <tr><td><code>Invalid environment: MONGODB_URI is required</code></td><td>`.env` file is missing or has empty URI.</td><td>Copy `.env.example` to `.env` and fill in connection string.</td></tr>
+      <tr><td><code>Could not connect to MongoDB at ... serverSelectionTimeoutMS</code></td><td>IP address not whitelisted in Atlas.</td><td>Log in to Atlas $\to$ Network Access $\to$ Add IP Address (`0.0.0.0/0`).</td></tr>
+      <tr><td><code>403 CSRF: Missing request header</code></td><td>Mutation sent without custom header.</td><td>Ensure request carries `X-Requested-With: aerotrack`.</td></tr>
+      <tr><td>Camera scanner fails to open</td><td>Browser blocks camera on insecure HTTP.</td><td>Access via `http://localhost:4000` or configure HTTPS SSL.</td></tr>
+    </tbody>
+  </table>
+
+  <h1>Chapter 23: Automated Testing & Verification Results</h1>
+  <div class="callout">
+    <div class="callout-title">Test Execution Report: 27 of 27 Tests Passed (0 Failures)</div>
+    <strong>Shared Utils Tests (19 tests):</strong> CSPRNG bounds and rejection sampling, uniform digits, reference format (`AT-YYYY-DDDDDD`), QR payloads, reference normalization, state machine forward skips and backward rejections, exception resumes, terminal state rules, anomaly evaluation, and prediction heuristics.<br>
+    <strong>Backend API Tests (8 tests):</strong> Environment schema validation, MongoDB URI password redaction, CORS origins parsing, bcrypt password hashing, constant-time compare, CSRF middleware verification, and `/api/health` system readiness probes.
+  </div>
+
+  <div class="page-break"></div>
+
+  <!-- CHAPTER 25: MASTER VIVA Q&A -->
+  <h1>Chapter 25: Master Viva Questions & Answers (40+ Questions)</h1>
+
+  <h2>Part 1: Basic & Architectural Foundations</h2>
+  <div class="viva-item">
+    <div class="viva-q">1. What is AeroTrack Pro, and what is its primary academic purpose?</div>
+    <div class="viva-a">AeroTrack Pro is a full-stack Web Application Development (WAD) project for airport baggage tracking that combines cryptographically secure QR tags, physical checkpoint verification, automated anomaly detection, and explainable delay-risk prediction.</div>
+  </div>
+  <div class="viva-item">
+    <div class="viva-q">2. What problem does AeroTrack Pro solve in airport logistics?</div>
+    <div class="viva-a">It eliminates passenger anxiety by providing transparent scan timelines, prevents duplicate or skipped checkpoint scans, and gives ground handlers automated warnings when luggage misses security screening or stalls at transit stations.</div>
+  </div>
+  <div class="viva-item">
+    <div class="viva-q">3. Why does the system explicitly avoid claiming continuous GPS tracking?</div>
+    <div class="viva-a">Real-world airport baggage handling relies on optical barcode/RFID checkpoints. Luggage does not contain active GPS satellite transmitters. Claiming continuous GPS tracking between checkpoints would be technologically inaccurate.</div>
+  </div>
+  <div class="viva-item">
+    <div class="viva-q">4. What is the role of the shared-utils workspace?</div>
+    <div class="viva-a">It provides a single source of truth for business logic—journey state machines, rejection sampling RNG, QR format parsers, and anomaly rules—reused by both the frontend client and the backend server.</div>
+  </div>
+
+  <h2>Part 2: Frontend Engineering</h2>
+  <div class="viva-item">
+    <div class="viva-q">5. Why is the frontend built with vanilla HTML/CSS/JS without React or Vue?</div>
+    <div class="viva-a">It eliminates complex build-tool dependencies, prevents bundler version rot, provides instant cold load times, and allows faculty to inspect the clean code directly in the browser DevTools.</div>
+  </div>
+  <div class="viva-item">
+    <div class="viva-q">6. How is client-side routing implemented?</div>
+    <div class="viva-a">In `frontend/js/lib/router.js` using the HTML5 History API (`pushState` and `popstate`), intercepting internal link clicks to render dynamic views without triggering full-page browser reloads.</div>
+  </div>
+  <div class="viva-item">
+    <div class="viva-q">7. How does the camera barcode scanner function?</div>
+    <div class="viva-a">It uses the `html5-qrcode` library to access the device's video stream via `navigator.mediaDevices.getUserMedia`, decodes optical QR patterns in real time, and sends the extracted reference to the API.</div>
+  </div>
+  <div class="viva-item">
+    <div class="viva-q">8. How are dark and light themes managed?</div>
+    <div class="viva-a">`frontend/js/theme-init.js` runs synchronously in the HTML `<head>` before the DOM renders, applying the user's saved theme from localStorage to avoid any flash of unstyled content.</div>
+  </div>
+
+  <h2>Part 3: Backend & Express Architecture</h2>
+  <div class="viva-item">
+    <div class="viva-q">9. Why Express 5 over Express 4?</div>
+    <div class="viva-a">Express 5 natively handles rejected Promises in asynchronous route handlers, eliminating the need to wrap every route in boilerplate `try/catch` or custom async-wrapper helpers.</div>
+  </div>
+  <div class="viva-item">
+    <div class="viva-q">10. How does the middleware pipeline process requests?</div>
+    <div class="viva-a">Helmet sets security headers $\to$ CORS validates origins $\to$ Rate limiters check quotas $\to$ Body parser reads JSON $\to$ Cookie parser extracts session tokens $\to$ CSRF middleware confirms headers $\to$ Session loader attaches the user $\to$ Route controllers execute.</div>
+  </div>
+  <div class="viva-item">
+    <div class="viva-q">11. How are background anomaly sweeps executed?</div>
+    <div class="viva-a">`backend/src/index.js` sets a 5-minute `setInterval` calling `runAnomalySweep()`, which queries MongoDB for active bags that have exceeded their station dwell thresholds.</div>
+  </div>
+  <div class="viva-item">
+    <div class="viva-q">12. How does the server shut down gracefully?</div>
+    <div class="viva-a">Signal listeners for `SIGINT` and `SIGTERM` stop the HTTP listener, clear background intervals, close MongoDB connections, and terminate cleanly.</div>
+  </div>
+
+  <h2>Part 4: MongoDB Atlas & Persistence</h2>
+  <div class="viva-item">
+    <div class="viva-q">13. Why use MongoDB Atlas instead of MySQL?</div>
+    <div class="viva-a">Luggage tracking involves polymorphic audit events, nested scan findings, and variable flight manifests, which map naturally to flexible JSON documents without rigid join overhead.</div>
+  </div>
+  <div class="viva-item">
+    <div class="viva-q">14. What are Mongoose schemas and models?</div>
+    <div class="viva-a">Schemas define document structure, data types, validators, and default values. Models are compiled constructors that provide the interface for executing MongoDB CRUD operations.</div>
+  </div>
+  <div class="viva-item">
+    <div class="viva-q">15. How are database credentials protected?</div>
+    <div class="viva-a">Stored exclusively in `.env`, loaded via Zod validation, and passed through `redactMongoUri()` which strips passwords from all application logs and error messages.</div>
+  </div>
+  <div class="viva-item">
+    <div class="viva-q">16. How does optimistic locking work in baggage updates?</div>
+    <div class="viva-a">The `Baggage` document has a `version` field. When updating, the query matches `{ _id, version }` and increments `version`. If another scan updated the bag simultaneously, the update fails cleanly with a conflict error.</div>
+  </div>
+
+  <h2>Part 5: Security & Authentication</h2>
+  <div class="viva-item">
+    <div class="viva-q">17. How are user passwords hashed?</div>
+    <div class="viva-a">Using `bcryptjs` with 12 computational rounds. Plaintext passwords are never stored in memory or persisted to the database.</div>
+  </div>
+  <div class="viva-item">
+    <div class="viva-q">18. How are user enumeration attacks prevented on login?</div>
+    <div class="viva-a">If an entered email does not exist, the server executes a dummy comparison against `DUMMY_HASH`, ensuring response timing is identical whether or not an account exists.</div>
+  </div>
+  <div class="viva-item">
+    <div class="viva-q">19. Why use server-side sessions instead of JWT in localStorage?</div>
+    <div class="viva-a">JWTs in localStorage are vulnerable to XSS theft. AeroTrack Pro uses `HttpOnly`, `SameSite=lax` signed cookie sessions stored in MongoDB, allowing immediate session revocation by administrators.</div>
+  </div>
+  <div class="viva-item">
+    <div class="viva-q">20. How is CSRF prevented with cookie authentication?</div>
+    <div class="viva-a">State-changing requests (`POST`, `PATCH`, `DELETE`) require the custom header `X-Requested-With: aerotrack`. Browsers forbid cross-origin sites from sending custom headers without CORS preflight authorization.</div>
+  </div>
+
+  <h2>Part 6: Algorithms & Machine Learning</h2>
+  <div class="viva-item">
+    <div class="viva-q">21. What is modulo bias, and how is it resolved?</div>
+    <div class="viva-a">Taking a 32-bit integer modulo 1,000,000 gives lower remainders a higher probability because $2^{32}$ is not divisible by 1,000,000. Rejection sampling rejects integers $\ge 4,294,000,000$, ensuring an exact uniform $10^{-6}$ probability.</div>
+  </div>
+  <div class="viva-item">
+    <div class="viva-q">22. How does the anomaly engine detect skipped checkpoints?</div>
+    <div class="viva-a">`checkTransition()` inspects the delta in the 8-stage main flow. If moving from `CHECKED_IN` (index 1) to `LOADED` (index 3), it returns `skipped: ['SECURITY_SCREENING']`, triggering a high-severity alert.</div>
+  </div>
+  <div class="viva-item">
+    <div class="viva-q">23. How does the delay-risk baseline heuristic calculate scores?</div>
+    <div class="viva-a">It extracts a 9-feature operational vector and applies additive heuristic weights (dwell ratio, missed checkpoints, departure proximity), bounding output risk in $[0.05, 1.0]$.</div>
+  </div>
+  <div class="viva-item">
+    <div class="viva-q">24. Why is logistic regression suitable for delay prediction?</div>
+    <div class="viva-a">Logistic regression produces linear log-odds where each factor's exact contribution can be explained to ground handlers in plain English, avoiding opaque black-box decisions.</div>
+  </div>
+
+  <h2>Part 7: Deployment & Operations</h2>
+  <div class="viva-item">
+    <div class="viva-q">25. What is the difference between deploying on Render vs Vercel?</div>
+    <div class="viva-a">Render runs a persistent container where background `setInterval` anomaly sweep timers and connection pools run continuously. Vercel runs serverless lambdas that freeze between requests.</div>
+  </div>
+  <div class="viva-item">
+    <div class="viva-q">26. What is CORS, and how is it configured?</div>
+    <div class="viva-a">Cross-Origin Resource Sharing restricts which browser origins can call the API. In `backend/src/app.js`, CORS strictly validates incoming origins against `CLIENT_URL` and `CORS_ORIGINS`.</div>
+  </div>
+
+  <div class="page-break"></div>
+
+  <!-- CHAPTER 26: QUICK VIVA LOOKUP -->
+  <h1>Chapter 26: Quick Viva Code Lookup Guide</h1>
+  <p>When the examination committee asks to see code for a specific feature, immediately open these files:</p>
+
+  <table>
+    <thead><tr><th>Viva Question Topic</th><th>File to Open</th><th>Key Function / Line</th></tr></thead>
+    <tbody>
+      <tr><td>User Login & Authentication Controller</td><td><code>backend/src/controllers/authController.js</code></td><td><code>login()</code>, <code>verifyOtp()</code>, <code>register()</code></td></tr>
+      <tr><td>Modular Auth Routes & CSRF</td><td><code>backend/src/routes/authRoutes.js</code></td><td><code>r.post('/login')</code>, <code>requireCsrfHeader</code></td></tr>
+      <tr><td>Password Hashing & Timing Defense</td><td><code>backend/src/controllers/authController.js</code></td><td><code>bcrypt.compare()</code>, <code>DUMMY_HASH</code></td></tr>
+      <tr><td>Database Connection & Ping Check</td><td><code>backend/src/config/db.js</code></td><td><code>connectDatabase()</code>, <code>pingDatabase()</code></td></tr>
+      <tr><td>CSPRNG Rejection Sampling Algorithm</td><td><code>shared-utils/src/qr.js</code></td><td><code>secureRandomInt()</code>, <code>generateReference()</code></td></tr>
+      <tr><td>Journey State Machine & Transitions</td><td><code>shared-utils/src/status.js</code></td><td><code>checkTransition()</code>, <code>MAIN_FLOW</code></td></tr>
+      <tr><td>Baggage Controller & Registration</td><td><code>backend/src/controllers/baggageController.js</code></td><td><code>createBaggage()</code>, <code>getBaggageByRef()</code></td></tr>
+      <tr><td>Baggage Service Business Logic</td><td><code>backend/src/services/baggageService.js</code></td><td>CSPRNG collision retry, optimistic locking</td></tr>
+      <tr><td>Optical Barcode Scan Controller</td><td><code>backend/src/controllers/scanController.js</code></td><td><code>processScan()</code>, idempotency check</td></tr>
+      <tr><td>Anomaly Evaluation Logic & Sweeper</td><td><code>shared-utils/src/anomaly.js</code><br><code>backend/src/services/anomalyService.js</code></td><td><code>evaluateScan()</code>, <code>runSweep()</code></td></tr>
+      <tr><td>Delay-Risk Prediction Scoring</td><td><code>shared-utils/src/prediction.js</code><br><code>backend/src/services/predictionService.js</code></td><td><code>baselineRisk()</code>, <code>buildFeatures()</code></td></tr>
+      <tr><td>Anti-CSRF Header Protection</td><td><code>backend/src/middleware/securityMiddleware.js</code></td><td><code>requireCsrfHeader()</code></td></tr>
+      <tr><td>Role-Based Access Control (RBAC)</td><td><code>backend/src/middleware/authMiddleware.js</code></td><td><code>requireRole()</code>, <code>requireAuth()</code></td></tr>
+      <tr><td>Operations Board Active Feed</td><td><code>backend/src/controllers/baggageController.js</code></td><td><code>getOperationsBoard()</code></td></tr>
+      <tr><td>System Analytics & KPIs</td><td><code>backend/src/controllers/adminController.js</code></td><td><code>getAnalytics()</code>, <code>getAuditLogs()</code></td></tr>
+      <tr><td>Frontend HTTP Client</td><td><code>frontend/js/lib/api.js</code></td><td><code>request()</code>, <code>post()</code>, <code>patch()</code></td></tr>
+      <tr><td>Client Routing & Page Switcher</td><td><code>frontend/js/main.js</code></td><td><code>ROUTES</code> array, <code>render()</code></td></tr>
+    </tbody>
+  </table>
+
+  <div class="callout" style="margin-top: 20px;">
+    <strong>Demonstration Tip for Dheena Dhayal:</strong> Start by introducing the project problem statement (opaque luggage handling and modulo-biased baggage references). Show the CSPRNG implementation in <code>shared-utils/src/qr.js</code>, register a bag in the Passenger Portal, scan it at a simulated checkpoint using the Staff Portal, show the live anomaly alert raised when skipping screening, and review the automated test suite results (27 passed).
+  </div>
+
+</body>
+</html>

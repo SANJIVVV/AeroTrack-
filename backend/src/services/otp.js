@@ -24,6 +24,10 @@ export async function issueOtp(ctx, userId, purpose) {
   return code;
 }
 
+export async function invalidateOtp(ctx, userId, purpose) {
+  await OtpChallenge.updateMany({ user: userId, purpose, usedAt: null }, { usedAt: ctx.now() });
+}
+
 const invalid = () => new AppError(400, 'INVALID_CODE', 'That code is incorrect or has expired. Check the latest email or request a new code.');
 
 /** Check a code. Wrong guesses count towards the attempt limit; success marks it used. */
