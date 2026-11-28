@@ -3,14 +3,13 @@
   "version": 2,
   "buildCommand": "node -e \"const fs=require('fs');fs.rmSync('public',{recursive:true,force:true});fs.cpSync('frontend','public',{recursive:true});fs.cpSync('shared-utils/src','public/shared',{recursive:true});\"",
   "outputDirectory": "public",
-  "cleanUrls": true,
   "rewrites": [
     {
       "source": "/api/(.*)",
       "destination": "/api"
     },
     {
-      "source": "/((?!api/|shared/|icons/|css/|js/|libraries/|manifest\\.webmanifest|sw\\.js).*)",
+      "source": "/:path((?!api/|shared/|icons/|css/|js/|libraries/|manifest\\.webmanifest|sw\\.js).*)",
       "destination": "/index.html"
     }
   ]
